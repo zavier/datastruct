@@ -102,26 +102,54 @@ func PostOrderTraveralWithStack(root *TreeNode) {
 	for treeNode != nil || len(stack) > 0 {
 		for treeNode != nil {
 			stack = append(stack, treeNode)
+			print(stack)
 			nodeViewStatusMap[treeNode] = false
 			treeNode = treeNode.leftChild
 		}
 		if len(stack) > 0 {
 			treeNode = stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
+			print(stack)
 			// 此时当前节点还不能访问，因为它的右子树还没有访问
 			// 这种情况下所有节点都会入栈两次
 			if !nodeViewStatusMap[treeNode] {
 				// 标记后将其放回
 				nodeViewStatusMap[treeNode] = true
 				stack = append(stack, treeNode)
+				print(stack)
 				// 继续入栈其右子树
 				treeNode = treeNode.rightChild
 			} else {
-				// 此时节点的右子树已经访问完毕，不再需要处理其右节点，所以可以直接置nil即可
-				// 不然会无限重复处理下去，没有结束
 				fmt.Println(treeNode.data)
+				// 此节点关联元素已经处理过，直接置空即可
 				treeNode = nil
 			}
+		}
+	}
+}
+
+func print(stack []*TreeNode) {
+	var ints []int
+	for _, item := range stack {
+		data := item.data
+		ints = append(ints, data)
+	}
+	fmt.Println(ints)
+}
+
+// 广度优先遍历
+func WidthFirstTraveral(root *TreeNode) {
+	var queue []*TreeNode
+	queue = append(queue, root)
+	for len(queue) > 0 {
+		node := queue[0]
+		queue = queue[1:]
+		fmt.Println(node.data)
+		if node.leftChild != nil {
+			queue = append(queue, node.leftChild)
+		}
+		if node.rightChild != nil {
+			queue = append(queue, node.rightChild)
 		}
 	}
 }

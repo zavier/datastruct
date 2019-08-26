@@ -41,3 +41,8 @@ func TestPostOrderTraveralWithStack(t *testing.T) {
 	fmt.Println("非递归后序遍历")
 	PostOrderTraveralWithStack(tree)
 }
+
+func TestWidthFirstTraveral(t *testing.T) {
+	fmt.Println("广度优先遍历")
+	WidthFirstTraveral(tree)
+}
